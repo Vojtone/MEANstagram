@@ -1,0 +1,21 @@
+<p>
+  user-profile works!
+</p>
+<app-user-data></app-user-data>
+<app-user-posts-grid></app-user-posts-grid>
+
+<div class="row">
+  <div class="col-xs-4">
+    <img src={{user.profilePhotoUrl}} class="img-responsive rounded-circle" style="max-height: 100px;">
+  </div>
+  <div class="col-xs-8">
+    <h5>{{user.username}}</h5>
+    <span>{{user.description}}</span>
+  </div>
+</div>
+
+<div class="row">
+  <a href="#" *ngFor="let post of user.posts" class="col-4">
+    <img [src]="post.photoUrl" class="img-responsive img-thumbnail">
+  </a>
+</div>
