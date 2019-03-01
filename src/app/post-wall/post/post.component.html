@@ -1,11 +1,18 @@
-<div class="clearfix" style="margin-top: 10px">
+<div class="clearfix" style="margin-top: 10px; text-align: center;">
       <span>
         <img
           [src]="post.photoUrl"
           class="img-responsive"
-          style="max-height: 100px;">
+          style="max-height: 200px;">
       </span>
   <div>
+    <p class="list-group-item-text">likes: {{post.likes}}</p>
     <p class="list-group-item-text">{{post.description}}</p>
+    <p class="list-group-item-text">comments:</p>
+    <p class="list-group-item-text" *ngIf="post.comments.length === 0">No comments.</p>
+    <p class="list-group-item-text"
+       *ngFor="let com of post.comments"
+      style="background: peachpuff">{{com.user.username}}: {{com.content}}</p>
+
   </div>
 </div>

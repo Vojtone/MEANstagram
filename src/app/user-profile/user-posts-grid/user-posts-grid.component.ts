@@ -7,7 +7,7 @@ import {Post} from '../../shared/post.model';
   styleUrls: ['./user-posts-grid.component.css']
 })
 export class UserPostsGridComponent implements OnInit {
-  @Input() post: Post;
+  @Input() postRow: Post[];
 
   constructor() { }
 

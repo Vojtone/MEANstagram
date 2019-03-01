@@ -1,5 +1,7 @@
 import {Post} from './post.model';
 
 export class User {
-  constructor(public username: string, public profilePhotoUrl: string, public description: string, public posts: Post[]) {}
+  constructor(public username: string, public profilePhotoUrl: string,
+              public description: string, public posts: Post[],
+              public followers: User[], public following: User[]) {}
 }

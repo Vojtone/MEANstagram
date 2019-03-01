@@ -1,7 +1,18 @@
-<div class="col-xs-4">
+<div class="col-3">
   <img src={{user.profilePhotoUrl}} class="img-responsive rounded-circle" style="max-height: 100px;">
 </div>
-<div class="col-xs-8">
-  <h5>{{user.username}}</h5>
-  <span>{{user.description}}</span>
+<div class="col-1"></div>
+<div class="col-8">
+  <div>Posts: {{user.posts.length}}</div>
+  <div>Followers: {{user.followers.length}}</div>
+  <div>Following: {{user.following.length}}</div>
 </div>
+
+<div class="row">
+  <div class="col-3">
+    <h5>{{user.username}}</h5>
+  </div>
+  <div class="col-12" style="margin-top: 30px;">{{user.description}}</div>
+</div>
+
+

@@ -1,11 +1,10 @@
-<p>
-  user-profile works!
-</p>
-
-<div class="row">
-  <app-user-data [user]="user"></app-user-data>
-</div>
-
-<div class="row">
-  <app-user-posts-grid *ngFor="let post of user.posts" [post]="post"></app-user-posts-grid>
-</div>
+<app-user-data
+  class="row"
+  [user]="user">
+</app-user-data>
+<hr>
+<app-user-posts-grid
+  *ngFor="let postRow of postRows"
+  class="row"
+  [postRow]="postRow">
+</app-user-posts-grid>

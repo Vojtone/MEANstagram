@@ -1,9 +1,7 @@
-export class Post {
-  public photoUrl: string;
-  public description: string;
+import {Comment} from './comment.model';
 
-  constructor(photoUrl: string, description: string) {
-    this.photoUrl = photoUrl;
-    this.description = description;
-  }
+export class Post {
+
+  constructor(public photoUrl: string, public description: string, public creationDate: Date,
+              public likes: number, public comments: Comment[]) { }
 }
