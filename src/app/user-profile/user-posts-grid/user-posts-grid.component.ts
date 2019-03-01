@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
+import {Post} from '../../shared/post.model';
 
 @Component({
   selector: 'app-user-posts-grid',
@@ -6,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./user-posts-grid.component.css']
 })
 export class UserPostsGridComponent implements OnInit {
+  @Input() post: Post;
 
   constructor() { }
 

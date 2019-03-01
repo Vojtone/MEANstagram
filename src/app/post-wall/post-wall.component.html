@@ -1,18 +1,5 @@
-<hr>
 <div class="row">
   <div class="col-xs-12">
-    <div class="clearfix" *ngFor="let post of posts" style="margin-top: 10px">
-      <span>
-        <img
-          [src]="post.photoUrl"
-          class="img-responsive"
-          style="max-height: 100px;">
-      </span>
-      <div>
-        <p class="list-group-item-text">{{post.description}}</p>
-      </div>
-    </div>
-
-    <app-post></app-post>
+    <app-post *ngFor="let post of posts" [post]="post"></app-post>
   </div>
 </div>

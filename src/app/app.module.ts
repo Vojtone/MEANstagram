@@ -8,6 +8,7 @@ import { UserProfileComponent } from './user-profile/user-profile.component';
 import { UserDataComponent } from './user-profile/user-data/user-data.component';
 import { UserPostsGridComponent } from './user-profile/user-posts-grid/user-posts-grid.component';
 import { PostComponent } from './post-wall/post/post.component';
+import {AppRoutingModule} from './app-routing.module';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { PostComponent } from './post-wall/post/post.component';
     PostComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]
