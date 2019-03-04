@@ -12,15 +12,15 @@ import {Subscription} from 'rxjs';
   providers: []
 })
 export class UserProfileComponent implements OnInit {
-  user: User;
+  loggedUser: User;
   postRows = [];
 
   constructor(private userProfileService: UserProfileService) { }
 
   ngOnInit() {
-    this.user = this.userProfileService.getUser();
+    this.loggedUser = this.userProfileService.getLoggedUser();
 
-    const posts = this.user.posts;
+    const posts = this.loggedUser.posts;
     for (let i = 0; i < posts.length; i++) {
       if (i % 3 === 0) {
         this.postRows.push([]);

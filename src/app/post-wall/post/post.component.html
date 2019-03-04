@@ -1,12 +1,16 @@
 <div class="clearfix" style="margin-top: 10px; text-align: center;">
-      <span>
-        <img
-          [src]="post.photoUrl"
-          class="img-responsive"
-          style="max-height: 200px;">
-      </span>
+
+  <span>
+    <p *ngIf="post.user !== null">{{post.user.username}}</p>
+    <p *ngIf="post.user === null">user_null for now</p>
+    <img
+      [src]="post.photoUrl"
+      class="img-responsive"
+      style="max-height: 200px;">
+  </span>
+
   <div>
-    <p class="list-group-item-text">likes: {{post.likes}}</p>
+    <p class="list-group-item-text">likes: {{post.likedBy.length}}</p>
     <p class="list-group-item-text">{{post.description}}</p>
     <p class="list-group-item-text">comments:</p>
     <p class="list-group-item-text" *ngIf="post.comments.length === 0">No comments.</p>

@@ -12,6 +12,8 @@ import {AppRoutingModule} from './app-routing.module';
 import { NewPostComponent } from './new-post/new-post.component';
 import {FormsModule} from '@angular/forms';
 import {UserProfileService} from './user-profile/user-profile.service';
+import {UsersService} from './shared/users.service';
+import {PostsService} from './shared/posts.service';
 
 @NgModule({
   declarations: [
@@ -29,7 +31,7 @@ import {UserProfileService} from './user-profile/user-profile.service';
     FormsModule,
     AppRoutingModule
   ],
-  providers: [UserProfileService, ],
+  providers: [UserProfileService, UsersService, PostsService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
