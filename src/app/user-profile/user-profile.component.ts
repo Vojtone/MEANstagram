@@ -1,14 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {User} from '../shared/user.model';
 import {Post} from '../shared/post.model';
 import {UserProfileService} from './user-profile.service';
 import {forEach} from '@angular/router/src/utils/collection';
+import {Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-user-profile',
   templateUrl: './user-profile.component.html',
   styleUrls: ['./user-profile.component.css'],
-  providers: [UserProfileService]
+  providers: []
 })
 export class UserProfileComponent implements OnInit {
   user: User;

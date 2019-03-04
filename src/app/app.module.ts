@@ -9,6 +9,9 @@ import { UserDataComponent } from './user-profile/user-data/user-data.component'
 import { UserPostsGridComponent } from './user-profile/user-posts-grid/user-posts-grid.component';
 import { PostComponent } from './post-wall/post/post.component';
 import {AppRoutingModule} from './app-routing.module';
+import { NewPostComponent } from './new-post/new-post.component';
+import {FormsModule} from '@angular/forms';
+import {UserProfileService} from './user-profile/user-profile.service';
 
 @NgModule({
   declarations: [
@@ -18,13 +21,15 @@ import {AppRoutingModule} from './app-routing.module';
     UserProfileComponent,
     UserDataComponent,
     UserPostsGridComponent,
-    PostComponent
+    PostComponent,
+    NewPostComponent
   ],
   imports: [
     BrowserModule,
+    FormsModule,
     AppRoutingModule
   ],
-  providers: [],
+  providers: [UserProfileService, ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

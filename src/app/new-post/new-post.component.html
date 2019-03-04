@@ -1,0 +1,31 @@
+<div class="row">
+  <div class="col-12">
+    <form (ngSubmit)="onAddPost(f)" #f="ngForm">
+      <div class="row">
+        <div class="col-12 form-group">
+          <label for="photoUrl">Photo Url</label>
+          <input
+            type="text"
+            id="photoUrl"
+            class="form-control"
+            name="photoUrl"
+            ngModel
+          >
+        </div>
+        <div class="col-12 form-group">
+          <label for="description">Description</label>
+          <input
+            type="text"
+            id="description"
+            class="form-control"
+            name="description"
+            ngModel
+          >
+        </div>
+        <div class="col-12">
+          <button class="btn btn-success" type="submit">Add</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
