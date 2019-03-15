@@ -11,7 +11,7 @@ export class PostsService {
   private users: User[] = this.usersService.getAllUsers();
 
   private posts: Post[] = [
-    new Post(this.users[0], 'https://upload.wikimedia.org/wikipedia/commons/d/d6/Terminalia_arjuna_W_IMG_2893.jpg',
+    new Post(this.users[0], 'https://images.pexels.com/photos/207962/pexels-photo-207962.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940',
       'First post.', new Date(2002, 11, 2), [], [
         new Comment(new User('pete', '', 'peete', [], [], []),
           new Date(2018, 7, 7), 'Nice photo!', [])
@@ -24,7 +24,7 @@ export class PostsService {
       '2 post.', new Date(2018, 5, 25), [], []),
     new Post(this.users[1], 'https://upload.wikimedia.org/wikipedia/commons/d/d6/Terminalia_arjuna_W_IMG_2893.jpg',
       '3 post.', new Date(2019, 2, 18), [], []),
-    new Post(this.users[2], 'https://upload.wikimedia.org/wikipedia/commons/d/d6/Terminalia_arjuna_W_IMG_2893.jpg',
+    new Post(this.users[2], 'https://envato-shoebox-0.imgix.net/0226/0b65-b9a9-11e3-9936-b8ca3a6774f8/VS_0047_007.jpg?auto=compress%2Cformat&fit=max&mark=https%3A%2F%2Felements-assets.envato.com%2Fstatic%2Fwatermark2.png&markalign=center%2Cmiddle&markalpha=18&w=800&s=684d125fdea32637ff670f9bd30f3987',
       '4 post.', new Date(2019, 1, 5), [], []),
   ];
 

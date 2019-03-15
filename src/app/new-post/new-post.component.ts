@@ -13,7 +13,7 @@ import {UsersService} from '../shared/users.service';
 })
 export class NewPostComponent implements OnInit {
 
-  constructor(private upService: UserProfileService, private postsService: PostsService,
+  constructor(private userProfileService: UserProfileService, private postsService: PostsService,
               private usersService: UsersService) { }
 
   ngOnInit() {
@@ -21,8 +21,8 @@ export class NewPostComponent implements OnInit {
 
   public onAddPost(form: NgForm) {
     const formVal = form.value;
-    const newPost = new Post(this.upService.getLoggedUser(), formVal.photoUrl, formVal.description, new Date(), [], []);
-    // this.upService.addPost(newPost);
+    const newPost = new Post(this.userProfileService.getLoggedUser(), formVal.photoUrl, formVal.description, new Date(), [], []);
+    // this.userProfileService.addPost(newPost);
     this.postsService.addPost(newPost);
     this.usersService.addPostToUser(0, newPost); // to jest niepoprawne
   }

@@ -1,22 +1,32 @@
 <div class="clearfix" style="margin-top: 10px; text-align: center;">
 
   <span>
-    <p *ngIf="post.user !== null">{{post.user.username}}</p>
-    <p *ngIf="post.user === null">user_null for now</p>
+    <p *ngIf="post.content.user !== null">{{post.content.user.username}}</p>
+    <p *ngIf="post.content.user === null">user_null for now</p>
     <img
-      [src]="post.photoUrl"
+      id = "photo-{{post.index}}"
+      [src]="post.content.photoUrl"
       class="img-responsive"
-      style="max-height: 200px;">
+      style="max-height: 200px; cursor: pointer"
+      (click)="showDetail($event)">
   </span>
 
   <div>
-    <p class="list-group-item-text">likes: {{post.likedBy.length}}</p>
-    <p class="list-group-item-text">{{post.description}}</p>
+    <p class="list-group-item-text">likes: {{post.content.likedBy.length}}</p>
+    <p class="list-group-item-text">{{post.content.description}}</p>
     <p class="list-group-item-text">comments:</p>
-    <p class="list-group-item-text" *ngIf="post.comments.length === 0">No comments.</p>
+    <p class="list-group-item-text" *ngIf="post.content.comments.length === 0">No comments.</p>
     <p class="list-group-item-text"
-       *ngFor="let com of post.comments"
+       *ngFor="let com of post.content.comments"
       style="background: peachpuff">{{com.user.username}}: {{com.content}}</p>
 
   </div>
+</div>
+
+<div id="overlay-{{post.index}}">
+  <img id="detail-{{post.index}}"
+    [src]="post.content.photoUrl"
+    class="img-responsive"
+    style="max-height: 500px; display: block; margin: 100px auto;"
+    (click)="hideDetail($event)">
 </div>
