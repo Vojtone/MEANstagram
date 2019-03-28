@@ -14,6 +14,8 @@ export class UsersService {
     new User('fifi', '', 'fiflak', [], [], []),
   ];
 
+  // users = HTTP GET /users TODO
+
   public getAllUsers() {
     return this.users;
   }
