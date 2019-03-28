@@ -1,4 +1,4 @@
-<div class="clearfix" style="margin-top: 10px; text-align: center;">
+<div class="clearfix" style="margin-top: 10px; text-align: center; border-bottom: 2px dashed sandybrown">
 
   <span>
     <p *ngIf="post.content.user !== null">{{post.content.user.username}}</p>
@@ -12,21 +12,31 @@
   </span>
 
   <div>
-    <p class="list-group-item-text">likes: {{post.content.likedBy.length}}</p>
+    <p class="list-group-item-text" *ngIf="post.content.likedBy.length === 0">
+      No likes yet.</p>
+    <p class="list-group-item-text" *ngIf="post.content.likedBy.length === 1">
+      likes: {{post.content.likedBy[0].username}}</p>
+    <p class="list-group-item-text" *ngIf="post.content.likedBy.length === 2">
+      likes: {{post.content.likedBy[0].username}} and {{post.content.likedBy[1].username}}</p>
+    <p class="list-group-item-text" *ngIf="post.content.likedBy.length > 2">
+      likes: {{post.content.likedBy[0].username}}, {{post.content.likedBy[1].username}}
+       and {{post.content.likedBy.length - 2}} more</p>
+
+
     <p class="list-group-item-text">{{post.content.description}}</p>
-    <p class="list-group-item-text">comments:</p>
-    <p class="list-group-item-text" *ngIf="post.content.comments.length === 0">No comments.</p>
+    <p class="list-group-item-text" *ngIf="post.content.comments.length === 0">No comments yet.</p>
     <p class="list-group-item-text"
-       *ngFor="let com of post.content.comments"
-      style="background: peachpuff">{{com.user.username}}: {{com.content}}</p>
+       *ngFor="let com of post.content.comments">
+      {{com.user.username}}: {{com.content}} | likes: {{com.likedBy.length}}
+    </p>
 
   </div>
 </div>
 
-<div id="overlay-{{post.index}}">
+<div id="overlay-{{post.index}}" style="display: none;">
   <img id="detail-{{post.index}}"
     [src]="post.content.photoUrl"
     class="img-responsive"
-    style="max-height: 500px; display: block; margin: 100px auto;"
+    style="max-height: 500px; margin: 100px auto; display: block;"
     (click)="hideDetail($event)">
 </div>

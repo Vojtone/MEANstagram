@@ -18,17 +18,19 @@ export class PostComponent implements OnInit {
   showDetail(event) {
     let overlay = this.getIdOfClickedElement(event);
     overlay = this.parseOverlayId(overlay, 6); //TODO: lepsze rozwiazanie niz kombinowanie z id?
-    overlay.classList.add('overlay');
+    overlay.style.display = 'block';
+    overlay.classList.add('detailed-view');
   }
 
   hideDetail(event) {
     let overlay = this.getIdOfClickedElement(event);
-    overlay = this.parseOverlayId(overlay, 7);
-    overlay.classList.remove('overlay');
+    overlay = this.parseOverlayId(overlay, 7); // 7 bo detail- TODO: stala
+    overlay.style.display = 'none';
+    overlay.classList.remove('detailed-view');
   }
 
   private parseOverlayId(overlay: string, shift: number) { //TODO: lepsza nazwa niz shift?
-    const tmp = 'overlay-' + overlay.substr(shift); // 7 bo detail- TODO: stala
+    const tmp = 'overlay-' + overlay.substr(shift);
     return document.getElementById(tmp);
   }
 
