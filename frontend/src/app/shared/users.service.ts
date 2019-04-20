@@ -1,23 +1,21 @@
 import {User} from './user.model';
 import {Post} from './post.model';
 import {Injectable} from '@angular/core';
+import { Subject } from 'rxjs';
 
 @Injectable()
 export class UsersService {
-  private users: User[] = [
-    new User('jan',
-      'https://upload.wikimedia.org/wikipedia/commons/0/05/Orthosiphon_pallidus_%28Jyoti%29_in_Talakona_forest%2C_AP_W_IMG_8284.jpg',
-      'Random user description.', [], [], []),
-    new User('kuba', '', 'just kuba', [], [], []),
-    new User('caty', '', 'just caty', [], [], []),
-    new User('que', '', 'quequeuqeuqe', [], [], []),
-    new User('fifi', '', 'fiflak', [], [], []),
-  ];
+  usersChanged = new Subject<User[]>();
 
-  // users = HTTP GET /users TODO
+  private users: User[];
+
+  public setUsers(users: User[]) {
+    this.users = users;
+    this.usersChanged.next(this.users.slice());
+  }
 
   public getAllUsers() {
-    return this.users;
+    return this.users.slice();
   }
 
   public addUser(user: User) {

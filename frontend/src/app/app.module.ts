@@ -14,6 +14,8 @@ import {FormsModule} from '@angular/forms';
 import {UserProfileService} from './user-profile/user-profile.service';
 import {UsersService} from './shared/users.service';
 import {PostsService} from './shared/posts.service';
+import {HttpClientModule} from '@angular/common/http';
+import {DataStorageService} from './shared/data-storage.service';
 
 @NgModule({
   declarations: [
@@ -28,10 +30,11 @@ import {PostsService} from './shared/posts.service';
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     FormsModule,
     AppRoutingModule
   ],
-  providers: [UserProfileService, UsersService, PostsService],
+  providers: [UserProfileService, UsersService, PostsService, DataStorageService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
