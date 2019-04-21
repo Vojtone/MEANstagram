@@ -11,7 +11,6 @@ import { PostComponent } from './post-wall/post/post.component';
 import {AppRoutingModule} from './app-routing.module';
 import { NewPostComponent } from './new-post/new-post.component';
 import {FormsModule} from '@angular/forms';
-import {UserProfileService} from './user-profile/user-profile.service';
 import {UsersService} from './shared/users.service';
 import {PostsService} from './shared/posts.service';
 import {HttpClientModule} from '@angular/common/http';
@@ -34,7 +33,7 @@ import {DataStorageService} from './shared/data-storage.service';
     FormsModule,
     AppRoutingModule
   ],
-  providers: [UserProfileService, UsersService, PostsService, DataStorageService],
+  providers: [UsersService, PostsService, DataStorageService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -21,7 +21,6 @@ export class DataStorageService {
     })
       .pipe(map(
         (users) => {
-          console.log(users);
           return users;
         }
       ))
@@ -39,7 +38,6 @@ export class DataStorageService {
     })
       .pipe(map(
         (posts) => {
-          console.log(posts);
           return posts;
         }
       ))
@@ -47,6 +45,6 @@ export class DataStorageService {
         (posts: Post[]) => {
           this.postsService.setPosts(posts);
         }
-      ); // TODO: DRY
+      ); // TODO: DRY & url to var
   }
 }

@@ -9,7 +9,7 @@ import {Subject, Subscription} from 'rxjs';
 export class PostsService implements OnInit {
   postsChanged = new Subject<Post[]>();
 
-  users: User[];
+  users: User[] = [];
   usersSubscription: Subscription;
 
   private posts: Post[] = [];
@@ -37,6 +37,14 @@ export class PostsService implements OnInit {
 
   public getAllPosts() {
     return this.posts.slice();
+  }
+
+  public getPost(id) {
+    return this.posts[id];
+  }
+
+  public getUserPosts(user) {
+    return this.posts.filter(post => post.user.username === user.username);
   }
 
   // ngOnDestroy() {

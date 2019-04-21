@@ -1,4 +1,6 @@
 var express = require('express');
+var util = require('util');
+
 var app = express();
 
 function User(username, profilePhotoUrl, description, posts, followers, following) {
@@ -6,7 +8,7 @@ function User(username, profilePhotoUrl, description, posts, followers, followin
     this.profilePhotoUrl = profilePhotoUrl;
     this.description = description;
     this.posts = posts;
-    this.followers = posts;
+    this.followers = followers;
     this.following = following;
 }
 
@@ -29,7 +31,7 @@ function Comment(user, creationDate, content, likedBy) {
 var users = [
     new User('jan',
         'https://upload.wikimedia.org/wikipedia/commons/0/05/Orthosiphon_pallidus_%28Jyoti%29_in_Talakona_forest%2C_AP_W_IMG_8284.jpg',
-        'Random user description.', [], [], []),
+        'Random user description.', ["0", "1", "2", "3"], [], []),
     new User('kuba', '', 'just kuba', [], [], []),
     new User('caty', '', 'just caty', [], [], []),
     new User('que', '', 'quequeuqeuqe', [], [], []),

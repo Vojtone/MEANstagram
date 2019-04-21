@@ -1,5 +1,4 @@
 import {User} from './user.model';
-import {Post} from './post.model';
 import {Injectable} from '@angular/core';
 import { Subject } from 'rxjs';
 
@@ -7,7 +6,7 @@ import { Subject } from 'rxjs';
 export class UsersService {
   usersChanged = new Subject<User[]>();
 
-  private users: User[];
+  private users: User[] = [];
 
   public setUsers(users: User[]) {
     this.users = users;
@@ -22,9 +21,13 @@ export class UsersService {
     this.users.push(user);
   }
 
-  public addPostToUser(userIndex: number, post: Post) {
-    this.users[userIndex].posts.push(post);
+  public getUser(id) {
+    return this.users[id];
   }
+
+  // public addPostToUser(userIndex: number, post: Post) {
+  //   this.users[userIndex].posts.push(post);
+  // }
 
   public addFollowingToUser(userIndex: number, followingUserIndex: number) {
     this.users[userIndex].following.push(this.users[followingUserIndex]);

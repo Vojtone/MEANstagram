@@ -1,14 +1,14 @@
-<div class="col-3">
+<div class="col-3" *ngIf="loggedUser">
   <img src={{loggedUser.profilePhotoUrl}} class="img-responsive rounded-circle" style="max-height: 100px;">
 </div>
 <div class="col-1"></div>
-<div class="col-8">
+<div class="col-8" *ngIf="loggedUser">
   <div>Posts: {{loggedUser.posts.length}}</div>
   <div>Followers: {{loggedUser.followers.length}}</div>
   <div>Following: {{loggedUser.following.length}}</div>
 </div>
 
-<div class="row">
+<div class="row" *ngIf="loggedUser">
   <div class="col-3">
     <h5>{{loggedUser.username}}</h5>
   </div>
