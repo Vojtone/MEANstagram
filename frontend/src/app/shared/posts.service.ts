@@ -44,7 +44,7 @@ export class PostsService implements OnInit {
   }
 
   public getUserPosts(user) {
-    return this.posts.filter(post => post.user.username === user.username);
+    return this.posts.filter(post => this.usersService.getUser(post.user).username === user.username);
   }
 
   // ngOnDestroy() {

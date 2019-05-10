@@ -1,18 +1,18 @@
-<div class="col-3" *ngIf="loggedUser">
-  <img src={{loggedUser.profilePhotoUrl}} class="img-responsive rounded-circle" style="max-height: 100px;">
+<div class="col-3" *ngIf="user">
+  <img src={{user.profilePhotoUrl}} class="img-responsive rounded-circle" style="max-height: 100px;">
 </div>
 <div class="col-1"></div>
-<div class="col-8" *ngIf="loggedUser">
-  <div>Posts: {{loggedUser.posts.length}}</div>
-  <div>Followers: {{loggedUser.followers.length}}</div>
-  <div>Following: {{loggedUser.following.length}}</div>
+<div class="col-8" *ngIf="user">
+  <div>Posts: {{user.posts.length}}</div>
+  <div>Followers: {{user.followers.length}}</div>
+  <div>Following: {{user.following.length}}</div>
 </div>
 
-<div class="row" *ngIf="loggedUser">
+<div class="row" *ngIf="user">
   <div class="col-3">
-    <h5>{{loggedUser.username}}</h5>
+    <h5>{{user.username}}</h5>
   </div>
-  <div class="col-12" style="margin-top: 30px;">{{loggedUser.description}}</div>
+  <div class="col-12" style="margin-top: 30px;">{{user.description}}</div>
 </div>
 
 

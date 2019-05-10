@@ -1,0 +1,36 @@
+<div class="modal-header">
+  <h4 class="modal-title">Hi there!</h4>
+  <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <span>
+    <!--<p *ngIf="post.user !== null">{{user.username}}</p>-->
+    <!--<p *ngIf="post.user === null">user_null for now</p>-->
+    <img
+      [src]="post.photoUrl"
+      class="img-responsive"
+      style="max-height: 200px; cursor: pointer">
+  </span>
+  <div>
+    <p class="list-group-item-text" *ngIf="post.likedBy.length === 0">
+      No likes yet.</p>
+    <p class="list-group-item-text" *ngIf="post.likedBy.length === 1">
+      likes: {{post.likedBy[0].username}}</p>
+    <p class="list-group-item-text" *ngIf="post.likedBy.length === 2">
+      likes: {{post.likedBy[0].username}} and {{post.likedBy[1].username}}</p>
+    <p class="list-group-item-text" *ngIf="post.likedBy.length > 2">
+      likes: {{post.likedBy[0].username}}, {{post.likedBy[1].username}}
+      and {{post.likedBy.length - 2}} more</p>
+
+
+    <p class="list-group-item-text">{{post.description}}</p>
+    <p class="list-group-item-text" *ngIf="post.comments.length === 0">No comments yet.</p>
+    <p class="list-group-item-text"
+       *ngFor="let com of post.comments">
+      {{com.user.username}}: {{com.content}} | likes: {{com.likedBy.length}}
+    </p>
+
+  </div>
+</div>

@@ -8,6 +8,7 @@ import {User} from '../../shared/user.model';
 })
 export class UserDataComponent implements OnInit {
   @Input() loggedUser: User;
+  @Input() user: User;
 
   constructor() { }
 

@@ -3,6 +3,7 @@ import {User} from '../shared/user.model';
 import {Subscription} from 'rxjs';
 import {PostsService} from '../shared/posts.service';
 import {UsersService} from '../shared/users.service';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'app-user-profile',
@@ -14,12 +15,14 @@ export class UserProfileComponent implements OnInit {
   postsSubscription: Subscription;
   usersSubscription: Subscription;
 
-  loggedUser: User;
+  user: User;
+  loggedUser: User; // TODO: remove it?
   postRows = [];
   userPosts = [];
 
   constructor(private postsService: PostsService,
-              private usersService: UsersService) { }
+              private usersService: UsersService,
+              private route: ActivatedRoute) { }
 
   private makePostRows() {
     for (let i = 0; i < this.userPosts.length; i++) {
@@ -31,10 +34,14 @@ export class UserProfileComponent implements OnInit {
   }
 
   ngOnInit() {
+    const user = this.route.snapshot.paramMap.get('user');
+
     this.postsSubscription = this.postsService.postsChanged
       .subscribe(
         () => {
-          this.userPosts = this.postsService.getUserPosts(this.loggedUser);
+          // this.userPosts = this.postsService.getUserPosts(this.loggedUser);
+          this.user = this.usersService.getUser(user);
+          this.userPosts = this.postsService.getUserPosts(this.user);
           this.makePostRows();
         }
       );

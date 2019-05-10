@@ -3,6 +3,8 @@ import {NgForm} from '@angular/forms';
 import {Post} from '../shared/post.model';
 import {PostsService} from '../shared/posts.service';
 import {UsersService} from '../shared/users.service';
+import {DataStorageService} from '../shared/data-storage.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-new-post',
@@ -13,17 +15,29 @@ import {UsersService} from '../shared/users.service';
 export class NewPostComponent implements OnInit {
 
   constructor(private postsService: PostsService,
-              private usersService: UsersService) { }
+              private usersService: UsersService,
+              private dataStorageService: DataStorageService,
+              private router: Router) { }
 
   ngOnInit() {
   }
 
   public onAddPost(form: NgForm) {
     const formVal = form.value;
-    //const newPost = new Post(this.userProfileService.getLoggedUser(), formVal.photoUrl, formVal.description, new Date(), [], []);
+    // TODO: get logged user
+    const newPost = new Post('0', formVal.photoUrl, formVal.description, new Date(), [], []);
+    this.dataStorageService.addNewPost(newPost)
+      .subscribe(
+        (response) => {
+          console.log(response);
+          this.dataStorageService.getPosts();
+          this.router.navigate(['/']); // TODO: tu leca errory
+        }
+      );
+    // console.log(a);
     // this.userProfileService.addPost(newPost);
-    //this.postsService.addPost(newPost);
-    //this.usersService.addPostToUser(0, newPost); // to jest niepoprawne
+    // this.postsService.addPost(newPost);
+    // this.usersService.addPostToUser(0, newPost); // to jest niepoprawne
   }
 
 }

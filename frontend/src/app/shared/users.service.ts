@@ -22,20 +22,8 @@ export class UsersService {
   }
 
   public getUser(id) {
-    return this.users[id];
-  }
-
-  // public addPostToUser(userIndex: number, post: Post) {
-  //   this.users[userIndex].posts.push(post);
-  // }
-
-  public addFollowingToUser(userIndex: number, followingUserIndex: number) {
-    this.users[userIndex].following.push(this.users[followingUserIndex]);
-    this.users[followingUserIndex].followers.push(this.users[userIndex]);
-  }
-
-  public addFollowerToUser(userIndex: number, followerUserIndex: number) {
-    this.users[userIndex].followers.push(this.users[followerUserIndex]);
-    this.users[followerUserIndex].following.push(this.users[userIndex]);
+    return this.users.filter((user) => user.username === id)[0] || this.users[id];
+    // TODO: Przejsc na samo id albo username
+    // return this.users[id];
   }
 }

@@ -1,7 +1,7 @@
 <div class="clearfix" style="margin-top: 10px; text-align: center; border-bottom: 2px dashed sandybrown">
 
   <span>
-    <p *ngIf="post.content.user !== null">{{post.content.user.username}}</p>
+    <p *ngIf="post.content.user !== null">{{user.username}}</p>
     <p *ngIf="post.content.user === null">user_null for now</p>
     <img
       id = "photo-{{post.index}}"

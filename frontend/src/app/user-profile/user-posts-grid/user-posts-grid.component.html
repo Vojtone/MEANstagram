@@ -1,9 +1,15 @@
-<a href="#" class="col-4">
-  <img [src]="postRow[0].photoUrl" class="img-responsive img-thumbnail">
-</a>
-<a href="#" class="col-4" *ngIf="postRow.length >= 2">
-  <img [src]="postRow[1].photoUrl" class="img-responsive img-thumbnail">
-</a>
-<a href="#" class="col-4" *ngIf="postRow.length >= 3">
-  <img [src]="postRow[2].photoUrl" class="img-responsive img-thumbnail">
-</a>
+<div class="col-4">
+  <img [src]="postRow[0].photoUrl"
+       class="img-responsive img-thumbnail"
+       (click)="showDetail(postRow[0])">
+</div>
+<div class="col-4" *ngIf="postRow.length >= 2">
+  <img [src]="postRow[1].photoUrl"
+       class="img-responsive img-thumbnail"
+       (click)="showDetail(postRow[1])">
+</div>
+<div class="col-4" *ngIf="postRow.length >= 3">
+  <img [src]="postRow[2].photoUrl"
+       class="img-responsive img-thumbnail"
+       (click)="showDetail(postRow[2])">
+</div>

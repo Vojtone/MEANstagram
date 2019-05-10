@@ -6,8 +6,9 @@ import {NewPostComponent} from './new-post/new-post.component';
 
 const appRoutes: Routes = [
   {path: '', component: PostWallComponent},
-  {path: 'jan', component: UserProfileComponent},
-  {path: 'add', component: NewPostComponent}
+  // {path: 'jan', component: UserProfileComponent},
+  {path: 'add', component: NewPostComponent},
+  {path: ':user', component: UserProfileComponent},
 ];
 
 @NgModule({

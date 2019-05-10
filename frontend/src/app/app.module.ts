@@ -1,6 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
 import { PostWallComponent } from './post-wall/post-wall.component';
@@ -15,6 +17,7 @@ import {UsersService} from './shared/users.service';
 import {PostsService} from './shared/posts.service';
 import {HttpClientModule} from '@angular/common/http';
 import {DataStorageService} from './shared/data-storage.service';
+import { PostDetailModalComponent } from './user-profile/post-detail-modal/post-detail-modal.component';
 
 @NgModule({
   declarations: [
@@ -25,15 +28,18 @@ import {DataStorageService} from './shared/data-storage.service';
     UserDataComponent,
     UserPostsGridComponent,
     PostComponent,
-    NewPostComponent
+    NewPostComponent,
+    PostDetailModalComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     FormsModule,
-    AppRoutingModule
+    AppRoutingModule,
+    NgbModule
   ],
   providers: [UsersService, PostsService, DataStorageService],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [PostDetailModalComponent]
 })
 export class AppModule { }

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import {HttpClient, HttpRequest} from '@angular/common/http';
 import { map } from 'rxjs/operators';
 
 import { UsersService } from './users.service';
@@ -12,6 +12,11 @@ export class DataStorageService {
   constructor(private httpClient: HttpClient,
               private usersService: UsersService,
               private postsService: PostsService) {
+  }
+
+  addNewPost(newPost) {
+    const req = new HttpRequest('POST', 'http://localhost:8080/posts', newPost, {reportProgress: true});
+    return this.httpClient.request(req);
   }
 
   getUsers() {
@@ -45,6 +50,6 @@ export class DataStorageService {
         (posts: Post[]) => {
           this.postsService.setPosts(posts);
         }
-      ); // TODO: DRY & url to var
+      ); // TODO: DRY & url to var & work on model here (map)
   }
 }
