@@ -35,6 +35,7 @@ export class UserProfileComponent implements OnInit {
 
   ngOnInit() {
     const user = this.route.snapshot.paramMap.get('user');
+    this.user = this.usersService.getUser(user);
 
     this.postsSubscription = this.postsService.postsChanged
       .subscribe(

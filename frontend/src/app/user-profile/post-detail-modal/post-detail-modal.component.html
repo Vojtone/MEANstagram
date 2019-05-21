@@ -1,5 +1,5 @@
 <div class="modal-header">
-  <h4 class="modal-title">Hi there!</h4>
+  <button type="button" class="btn btn-danger" (click)="deletePost(post)">Delete</button>
   <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
     <span aria-hidden="true">&times;</span>
   </button>
@@ -11,17 +11,17 @@
     <img
       [src]="post.photoUrl"
       class="img-responsive"
-      style="max-height: 200px; cursor: pointer">
+      style="max-height: 200px;">
   </span>
   <div>
     <p class="list-group-item-text" *ngIf="post.likedBy.length === 0">
       No likes yet.</p>
     <p class="list-group-item-text" *ngIf="post.likedBy.length === 1">
-      likes: {{post.likedBy[0].username}}</p>
+      likes: {{post.likedBy[0]}}</p>
     <p class="list-group-item-text" *ngIf="post.likedBy.length === 2">
-      likes: {{post.likedBy[0].username}} and {{post.likedBy[1].username}}</p>
+      likes: {{post.likedBy[0]}} and {{post.likedBy[1]}}</p>
     <p class="list-group-item-text" *ngIf="post.likedBy.length > 2">
-      likes: {{post.likedBy[0].username}}, {{post.likedBy[1].username}}
+      likes: {{post.likedBy[0]}}, {{post.likedBy[1]}}
       and {{post.likedBy.length - 2}} more</p>
 
 

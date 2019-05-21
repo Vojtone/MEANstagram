@@ -1,4 +1,4 @@
-<div class="clearfix" style="margin-top: 10px; text-align: center; border-bottom: 2px dashed sandybrown">
+<div class="clearfix" style="margin-top: 10px; text-align: center;">
 
   <span>
     <p *ngIf="post.content.user !== null">{{user.username}}</p>
@@ -15,13 +15,17 @@
     <p class="list-group-item-text" *ngIf="post.content.likedBy.length === 0">
       No likes yet.</p>
     <p class="list-group-item-text" *ngIf="post.content.likedBy.length === 1">
-      likes: {{post.content.likedBy[0].username}}</p>
+      likes: {{post.content.likedBy[0]}}</p>
     <p class="list-group-item-text" *ngIf="post.content.likedBy.length === 2">
-      likes: {{post.content.likedBy[0].username}} and {{post.content.likedBy[1].username}}</p>
+      likes: {{post.content.likedBy[0]}} and {{post.content.likedBy[1]}}</p>
     <p class="list-group-item-text" *ngIf="post.content.likedBy.length > 2">
-      likes: {{post.content.likedBy[0].username}}, {{post.content.likedBy[1].username}}
+      likes: {{post.content.likedBy[0]}}, {{post.content.likedBy[1]}}
        and {{post.content.likedBy.length - 2}} more</p>
 
+    <button class="btn btn-success" (click)="toggleLike(post.content)"
+            *ngIf="!loggedUserLikesIt">Like</button>
+    <button class="btn btn-danger" (click)="toggleLike(post.content)"
+            *ngIf="loggedUserLikesIt">Dislike</button>
 
     <p class="list-group-item-text">{{post.content.description}}</p>
     <p class="list-group-item-text" *ngIf="post.content.comments.length === 0">No comments yet.</p>
@@ -40,3 +44,4 @@
     style="max-height: 500px; margin: 100px auto; display: block;"
     (click)="hideDetail($event)">
 </div>
+<hr/>

@@ -13,6 +13,7 @@ import {Router} from '@angular/router';
   providers: []
 })
 export class NewPostComponent implements OnInit {
+  loggedUser = 'jan';
 
   constructor(private postsService: PostsService,
               private usersService: UsersService,
@@ -25,7 +26,7 @@ export class NewPostComponent implements OnInit {
   public onAddPost(form: NgForm) {
     const formVal = form.value;
     // TODO: get logged user
-    const newPost = new Post('0', formVal.photoUrl, formVal.description, new Date(), [], []);
+    const newPost = new Post('-1', this.loggedUser, formVal.photoUrl, formVal.description, new Date(), [], []);
     this.dataStorageService.addNewPost(newPost)
       .subscribe(
         (response) => {

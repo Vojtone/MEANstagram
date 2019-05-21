@@ -19,6 +19,18 @@ export class DataStorageService {
     return this.httpClient.request(req);
   }
 
+  updatePost(post) {
+    const url = 'http://localhost:8080/posts/' + post.id;
+    console.log(url);
+    const req = new HttpRequest('PUT', url, post, {reportProgress: true});
+    return this.httpClient.request(req);
+  }
+
+  deletePost(post) {
+    const req = new HttpRequest('DELETE', 'http://localhost:8080/posts', post, {reportProgress: true});
+    return this.httpClient.request(req);
+  }
+
   getUsers() {
     this.httpClient.get<User[]>('http://localhost:8080/users', {
       observe: 'body',

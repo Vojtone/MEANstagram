@@ -2,6 +2,8 @@ import {Component, Input, OnInit} from '@angular/core';
 import {Post} from '../../shared/post.model';
 import {User} from '../../shared/user.model';
 import {UsersService} from '../../shared/users.service';
+import {PostsService} from '../../shared/posts.service';
+import {DataStorageService} from '../../shared/data-storage.service';
 
 @Component({
   selector: 'app-post',
@@ -11,11 +13,16 @@ import {UsersService} from '../../shared/users.service';
 export class PostComponent implements OnInit {
   @Input() post: {content: Post, index: number};
   user: User;
+  loggedUser = 'jan';
+  loggedUserLikesIt: boolean;
 
-  constructor(private usersService: UsersService) { }
+  constructor(private usersService: UsersService,
+              private postsService: PostsService,
+              private dataStorageService: DataStorageService) { }
 
   ngOnInit() {
     this.user = this.usersService.getUser(this.post.content.user);
+    this.loggedUserLikesIt = this.post.content.likedBy.includes(this.loggedUser);
   }
 
 
@@ -31,6 +38,21 @@ export class PostComponent implements OnInit {
     overlay = this.parseOverlayId(overlay, 7); // 7 bo detail- TODO: magic number here
     overlay.style.display = 'none';
     overlay.classList.remove('detailed-view');
+  }
+
+  toggleLike(post) {
+    if (!this.loggedUserLikesIt) {
+      this.post.content.likedBy.push(this.loggedUser);
+    } else {
+      this.post.content.likedBy = this.post.content.likedBy.filter(user => user !== this.loggedUser);
+    }
+    this.loggedUserLikesIt = !this.loggedUserLikesIt;
+    this.dataStorageService.updatePost(post)
+      .subscribe(
+        (response) => {
+          console.log(response);
+        }
+      );
   }
 
   private parseOverlayId(overlay: string, shift: number) { // TODO: lepsza nazwa niz shift?
