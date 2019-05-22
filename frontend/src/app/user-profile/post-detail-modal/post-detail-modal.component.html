@@ -29,7 +29,7 @@
     <p class="list-group-item-text" *ngIf="post.comments.length === 0">No comments yet.</p>
     <p class="list-group-item-text"
        *ngFor="let com of post.comments">
-      {{com.user.username}}: {{com.content}} | likes: {{com.likedBy.length}}
+      {{com.user}}: {{com.content}} | likes: {{com.likedBy.length}}
     </p>
 
   </div>

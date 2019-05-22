@@ -22,18 +22,37 @@
       likes: {{post.content.likedBy[0]}}, {{post.content.likedBy[1]}}
        and {{post.content.likedBy.length - 2}} more</p>
 
-    <button class="btn btn-success" (click)="toggleLike(post.content)"
-            *ngIf="!loggedUserLikesIt">Like</button>
-    <button class="btn btn-danger" (click)="toggleLike(post.content)"
-            *ngIf="loggedUserLikesIt">Dislike</button>
+    <button class="btn btn-success" (click)="togglePostLike()"
+            *ngIf="!loggedUserLikesPost">Like post</button>
+    <button class="btn btn-danger" (click)="togglePostLike()"
+            *ngIf="loggedUserLikesPost">Dislike post</button>
 
     <p class="list-group-item-text">{{post.content.description}}</p>
     <p class="list-group-item-text" *ngIf="post.content.comments.length === 0">No comments yet.</p>
     <p class="list-group-item-text"
        *ngFor="let com of post.content.comments">
-      {{com.user.username}}: {{com.content}} | likes: {{com.likedBy.length}}
+
+      <button class="btn btn-danger" (click)="deleteComment(com)"
+              *ngIf="com.user === loggedUser">Delete comment</button>
+
+      {{com.user}}: {{com.content}} | likes: {{com.likedBy.length}}
+
+      <button class="btn btn-success" (click)="toggleCommentLike(com)"
+              *ngIf="!loggedUserLikesComment(com)">Like comment</button>
+      <button class="btn btn-danger" (click)="toggleCommentLike(com)"
+              *ngIf="loggedUserLikesComment(com)">Dislike comment</button>
+
     </p>
 
+  </div>
+
+  <div>
+    Add comment:
+    <textarea rows="1" style="resize: none;" [(ngModel)]="newComment"></textarea>
+    <button
+      class="btn btn-primary"
+      (click)="addNewComment()">Add Comment
+    </button>
   </div>
 </div>
 

@@ -1,6 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Post} from '../../shared/post.model';
 import {User} from '../../shared/user.model';
+import {Comment} from '../../shared/comment.model';
 import {UsersService} from '../../shared/users.service';
 import {PostsService} from '../../shared/posts.service';
 import {DataStorageService} from '../../shared/data-storage.service';
@@ -14,7 +15,8 @@ export class PostComponent implements OnInit {
   @Input() post: {content: Post, index: number};
   user: User;
   loggedUser = 'jan';
-  loggedUserLikesIt: boolean;
+  loggedUserLikesPost: boolean;
+  newComment = '';
 
   constructor(private usersService: UsersService,
               private postsService: PostsService,
@@ -22,7 +24,7 @@ export class PostComponent implements OnInit {
 
   ngOnInit() {
     this.user = this.usersService.getUser(this.post.content.user);
-    this.loggedUserLikesIt = this.post.content.likedBy.includes(this.loggedUser);
+    this.loggedUserLikesPost = this.post.content.likedBy.includes(this.loggedUser);
   }
 
 
@@ -40,14 +42,61 @@ export class PostComponent implements OnInit {
     overlay.classList.remove('detailed-view');
   }
 
-  toggleLike(post) {
-    if (!this.loggedUserLikesIt) {
+  togglePostLike() {
+    if (!this.loggedUserLikesPost) {
       this.post.content.likedBy.push(this.loggedUser);
     } else {
       this.post.content.likedBy = this.post.content.likedBy.filter(user => user !== this.loggedUser);
     }
-    this.loggedUserLikesIt = !this.loggedUserLikesIt;
-    this.dataStorageService.updatePost(post)
+    this.loggedUserLikesPost = !this.loggedUserLikesPost;
+    this.dataStorageService.updatePost(this.post.content)
+      .subscribe(
+        (response) => {
+          console.log(response);
+        }
+      );
+  }
+
+  loggedUserLikesComment(comment) {
+    return comment.likedBy.includes(this.loggedUser);
+  }
+
+  toggleCommentLike(comment) {
+    if (this.loggedUserLikesComment(comment)) {
+      comment.likedBy = comment.likedBy.filter(user => user !== this.loggedUser);
+    } else {
+      comment.likedBy.push(this.loggedUser);
+    }
+
+    this.dataStorageService.updatePost(this.post.content)
+      .subscribe(
+        (response) => {
+          console.log(response);
+        }
+      );
+  }
+
+  addNewComment() {
+    if (this.newComment === '') {
+      alert('Comment can\'t be empty! :(');
+      return;
+    }
+
+    const newComment = new Comment(this.loggedUser, new Date(), this.newComment, []);
+    this.post.content.comments.push(newComment);
+    this.newComment = '';
+    this.dataStorageService.updatePost(this.post.content)
+      .subscribe(
+        (response) => {
+          console.log(response);
+        }
+      ); // TODO: DRY (dSS.updatePost...)
+  }
+
+  deleteComment(comment) {
+    this.post.content.comments = this.post.content.comments
+      .filter(com => com !== comment);
+    this.dataStorageService.updatePost(this.post.content)
       .subscribe(
         (response) => {
           console.log(response);

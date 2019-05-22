@@ -50,8 +50,8 @@ var users = [
 var posts = [
     new Post('0','jan', 'https://images.pexels.com/photos/207962/pexels-photo-207962.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940',
     'First post.', new Date(2002, 11, 2), ['que', 'caty', 'kuba'], [
-      new Comment(users[1], new Date(2018, 7, 7),
-        'Nice photo!', [users[2], users[3]])
+        new Comment('kuba', new Date(2018, 7, 7), 'Nice photo!', ['caty', 'que']),
+        new Comment('fifi', new Date(2019, 2, 3), 'Najs!', ['que', 'jan'])
     ]),
     new Post('1','jan', 'https://upload.wikimedia.org/wikipedia/commons/d/d6/Terminalia_arjuna_W_IMG_2893.jpg',
     '2nd post.', new Date(2015, 1, 15), [], []),
