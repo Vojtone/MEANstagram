@@ -32,6 +32,7 @@ export class NewPostComponent implements OnInit {
         (response) => {
           console.log(response);
           this.dataStorageService.getPosts();
+          this.dataStorageService.getUsers();
           this.router.navigate(['/']); // TODO: tu leca errory
         }
       );

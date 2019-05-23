@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnChanges, OnDestroy, OnInit} from '@angular/core';
 import {User} from '../shared/user.model';
 import {Subscription} from 'rxjs';
 import {PostsService} from '../shared/posts.service';
@@ -16,7 +16,7 @@ export class UserProfileComponent implements OnInit {
   usersSubscription: Subscription;
 
   user: User;
-  loggedUser: User; // TODO: remove it?
+  loggedUser = 'jan'; // TODO: remove it?
   postRows = [];
   userPosts = [];
 
@@ -33,30 +33,30 @@ export class UserProfileComponent implements OnInit {
     }
   }
 
-  ngOnInit() {
-    const user = this.route.snapshot.paramMap.get('user');
-    this.user = this.usersService.getUser(user);
+  ngOnInit() { // TODO: redirect from one profile to other bug fix
+    const username = this.route.snapshot.paramMap.get('user');
+    this.user = this.usersService.getUser(username);
+    this.userPosts = this.postsService.getUserPosts(username);
+    this.makePostRows();
 
     this.postsSubscription = this.postsService.postsChanged
       .subscribe(
         () => {
-          // this.userPosts = this.postsService.getUserPosts(this.loggedUser);
-          this.user = this.usersService.getUser(user);
-          this.userPosts = this.postsService.getUserPosts(this.user);
+          this.user = this.usersService.getUser(username);
+          this.userPosts = this.postsService.getUserPosts(username);
           this.makePostRows();
         }
       );
 
-    this.usersSubscription = this.usersService.usersChanged
-      .subscribe(
-        (users: User[]) => {
-          this.loggedUser = users[0];
-        }
-      );
+    this.usersSubscription = this.usersService.usersChanged.subscribe();
 
-    this.loggedUser = this.usersService.getUser(0);
-    this.userPosts = this.postsService.getUserPosts(this.loggedUser);
-    this.makePostRows();
+    // this.route.params.subscribe(routeParams => {
+    //   // const username = this.route.snapshot.paramMap.get('user');
+    //   const usr = routeParams.user;
+    //   this.user = this.usersService.getUser(usr);
+    //   this.userPosts = this.postsService.getUserPosts(usr);
+    //   this.makePostRows();
+    // });
   }
 
 }

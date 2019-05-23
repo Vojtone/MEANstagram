@@ -1,7 +1,9 @@
 <div class="clearfix" style="margin-top: 10px; text-align: center;">
 
   <span>
-    <p *ngIf="post.content.user !== null">{{user.username}}</p>
+    <p *ngIf="post.content.user !== null"
+       routerLink="/{{user.username}}"
+      style="cursor: pointer;">{{user.username}}</p>
     <p *ngIf="post.content.user === null">user_null for now</p>
     <img
       id = "photo-{{post.index}}"
@@ -24,7 +26,7 @@
 
     <button class="btn btn-success" (click)="togglePostLike()"
             *ngIf="!loggedUserLikesPost">Like post</button>
-    <button class="btn btn-danger" (click)="togglePostLike()"
+    <button class="btn btn-warning" (click)="togglePostLike()"
             *ngIf="loggedUserLikesPost">Dislike post</button>
 
     <p class="list-group-item-text">{{post.content.description}}</p>
@@ -39,7 +41,7 @@
 
       <button class="btn btn-success" (click)="toggleCommentLike(com)"
               *ngIf="!loggedUserLikesComment(com)">Like comment</button>
-      <button class="btn btn-danger" (click)="toggleCommentLike(com)"
+      <button class="btn btn-warning" (click)="toggleCommentLike(com)"
               *ngIf="loggedUserLikesComment(com)">Dislike comment</button>
 
     </p>

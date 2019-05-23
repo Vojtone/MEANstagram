@@ -13,7 +13,7 @@
       class="img-responsive"
       style="max-height: 200px;">
   </span>
-  <div>
+  <div> <!-- TODO: Extract this from here and post-wall/post to new component (DRY) -->
     <p class="list-group-item-text" *ngIf="post.likedBy.length === 0">
       No likes yet.</p>
     <p class="list-group-item-text" *ngIf="post.likedBy.length === 1">
@@ -24,13 +24,36 @@
       likes: {{post.likedBy[0]}}, {{post.likedBy[1]}}
       and {{post.likedBy.length - 2}} more</p>
 
+    <button class="btn btn-success" (click)="togglePostLike(post)"
+            *ngIf="!loggedUserLikesPost(post)">Like post</button>
+    <button class="btn btn-warning" (click)="togglePostLike(post)"
+            *ngIf="loggedUserLikesPost(post)">Dislike post</button>
 
     <p class="list-group-item-text">{{post.description}}</p>
     <p class="list-group-item-text" *ngIf="post.comments.length === 0">No comments yet.</p>
     <p class="list-group-item-text"
        *ngFor="let com of post.comments">
+
+      <button class="btn btn-danger" (click)="deleteComment(com, post)"
+              *ngIf="com.user === loggedUser">Delete comment</button>
+
       {{com.user}}: {{com.content}} | likes: {{com.likedBy.length}}
+
+      <button class="btn btn-success" (click)="toggleCommentLike(com, post)"
+              *ngIf="!loggedUserLikesComment(com)">Like comment</button>
+      <button class="btn btn-warning" (click)="toggleCommentLike(com, post)"
+              *ngIf="loggedUserLikesComment(com)">Dislike comment</button>
+
     </p>
 
+  </div>
+
+  <div>
+    Add comment:
+    <textarea rows="1" style="resize: none;" [(ngModel)]="newComment"></textarea>
+    <button
+      class="btn btn-primary"
+      (click)="addNewComment(post)">Add Comment
+    </button>
   </div>
 </div>

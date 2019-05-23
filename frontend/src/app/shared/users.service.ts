@@ -21,9 +21,7 @@ export class UsersService {
     this.users.push(user);
   }
 
-  public getUser(id) {
-    return this.users.filter((user) => user.username === id)[0] || this.users[id];
-    // TODO: Przejsc na samo id albo username
-    // return this.users[id];
+  public getUser(username) {
+    return this.users.filter(user => user.username === username)[0];
   }
 }
