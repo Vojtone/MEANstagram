@@ -9,7 +9,7 @@ import {UsersService} from '../../shared/users.service';
   styleUrls: ['./user-data.component.css']
 })
 export class UserDataComponent implements OnInit {
-  @Input() loggedUser: User;
+  @Input() loggedUsername: User;
   @Input() user: User;
   constructor(private route: ActivatedRoute,
               private usersService: UsersService) { }

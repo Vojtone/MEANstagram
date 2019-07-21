@@ -7,7 +7,7 @@ import {Subject, Subscription} from 'rxjs';
 
 @Injectable()
 export class PostsService implements OnInit {
-  postsChanged = new Subject<Post[]>();
+  public postsChanged = new Subject<Post[]>();
 
   users: User[] = [];
   usersSubscription: Subscription;

@@ -4,7 +4,7 @@ import { Subject } from 'rxjs';
 
 @Injectable()
 export class UsersService {
-  usersChanged = new Subject<User[]>();
+  public usersChanged = new Subject<User[]>();
 
   private users: User[] = [];
 

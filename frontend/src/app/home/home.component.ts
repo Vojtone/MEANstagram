@@ -3,6 +3,7 @@ import {Router} from '@angular/router';
 import {DataStorageService} from '../shared/data-storage.service';
 import {NgForm} from '@angular/forms';
 import {User} from '../shared/user.model';
+import {AuthService} from '../shared/auth.service';
 
 declare var FB: any;
 
@@ -24,7 +25,8 @@ export class HomeComponent implements OnInit {
   constructor(private router: Router,
               private zone: NgZone,
               private dataStorageService: DataStorageService,
-              private cdRef: ChangeDetectorRef) {}
+              private cdRef: ChangeDetectorRef,
+              private authService: AuthService) {}
 
   ngOnInit() {
     const parentScope = this;
@@ -51,11 +53,13 @@ export class HomeComponent implements OnInit {
             .subscribe((res) => {
               if (res['body'] !== undefined) {
                 parentScope.fbUserID = fbUserId;
-                if (res['body']) {
+                if (res['body'].status) {
+                  // localStorage.setItem('loggedUsername', res['body'].username); // TODO: id (hash) not username
+                  parentScope.authService.setLoggedUsername(res['body'].username);
+                  console.log(res['body'].username + ' (fbID in DB)');
                   // parentScope.zone.run(() =>
                   //   parentScope.router.navigate(['/wall'])
                   // );
-                  console.log(res['body'] + ' (fbID in DB)');
                 } else {
                   // show modal signUp
                   console.log(res['body'] + ' (fbID NOT in DB)');
@@ -114,7 +118,10 @@ export class HomeComponent implements OnInit {
             this.cdRef.detectChanges();
             if (response['body'].status) {
               // success
-              console.log('created');
+              console.log('created ' + response['body'].username);
+              // localStorage.setItem('loggedUsername', response['body'].username);
+              this.authService.setLoggedUsername(response['body'].username);
+              // TODO: redirect here
             } else {
               // show message
               console.log(response['body'].msg);

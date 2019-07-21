@@ -84,7 +84,7 @@ app.post("/users", function(req, res){
     } else {
         users.push(new User(newUser.username, newUser.profilePhotoUrl, newUser.description,
             [], [], [], fbUserID));
-        res.send({status: true});
+        res.send({status: true, username: newUser.username});
     }
 });
 
@@ -92,9 +92,9 @@ app.post('/users/fbCheck', function(req, res){
     var fbUserId = req.body.fbUserId;
     for (var i=0; i<users.length; i++) {
         if (users[i].fbUserID === fbUserId) {
-            res.send(true);
+            res.send({status: true, username: users[i].username});
         } else if (i === users.length-1) {
-            res.send(false);
+            res.send({status: false});
         }
     }
 });

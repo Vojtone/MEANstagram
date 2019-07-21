@@ -19,6 +19,7 @@ import {HttpClientModule} from '@angular/common/http';
 import {DataStorageService} from './shared/data-storage.service';
 import { PostDetailModalComponent } from './user-profile/post-detail-modal/post-detail-modal.component';
 import { HomeComponent } from './home/home.component';
+import {AuthService} from './shared/auth.service';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,7 @@ import { HomeComponent } from './home/home.component';
     AppRoutingModule,
     NgbModule
   ],
-  providers: [UsersService, PostsService, DataStorageService],
+  providers: [UsersService, PostsService, DataStorageService, AuthService],
   bootstrap: [AppComponent],
   entryComponents: [PostDetailModalComponent]
 })

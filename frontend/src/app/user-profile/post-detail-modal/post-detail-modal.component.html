@@ -35,7 +35,7 @@
        *ngFor="let com of post.comments">
 
       <button class="btn btn-danger" (click)="deleteComment(com, post)"
-              *ngIf="com.user === loggedUser">Delete comment</button>
+              *ngIf="com.user === loggedUsername">Delete comment</button>
 
       {{com.user}}: {{com.content}} | likes: {{com.likedBy.length}}
 

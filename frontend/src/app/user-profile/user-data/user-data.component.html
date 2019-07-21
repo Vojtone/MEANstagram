@@ -1,5 +1,7 @@
 <div class="col-3" *ngIf="user">
-  <img src={{user.profilePhotoUrl}} class="img-responsive rounded-circle" style="max-height: 100px;">
+  <img src={{user.profilePhotoUrl}}
+       alt="Something's wrong with the given src :("
+       class="img-responsive rounded-circle" style="max-height: 100px;">
 </div>
 <div class="col-1"></div>
 <div class="col-8" *ngIf="user">

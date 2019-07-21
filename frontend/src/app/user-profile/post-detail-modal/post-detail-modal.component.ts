@@ -3,6 +3,8 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import {DataStorageService} from '../../shared/data-storage.service';
 import {Router} from '@angular/router';
 import {Comment} from '../../shared/comment.model';
+import {AuthService} from '../../shared/auth.service';
+import {Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-post-detail-modal',
@@ -11,14 +13,25 @@ import {Comment} from '../../shared/comment.model';
 })
 export class PostDetailModalComponent implements OnInit {
   @Input() post;
-  loggedUser = 'jan';
+  // loggedUser = 'jan';
+  // loggedUser = localStorage.getItem('loggedUsername');
+  loggedUsernameSub: Subscription;
+  loggedUsername = '';
   newComment = '';
 
   constructor(public activeModal: NgbActiveModal,
               private dataStorageService: DataStorageService,
-              private router: Router) { }
+              private router: Router,
+              private authService: AuthService) { }
 
   ngOnInit() {
+    this.loggedUsernameSub = this.authService.loggedUsernameChanged
+      .subscribe(
+        (username: string) => {
+          this.loggedUsername = username;
+        }
+      );
+    this.loggedUsername = this.authService.getLoggedUsername();
   }
 
   deletePost(post) {
@@ -35,14 +48,14 @@ export class PostDetailModalComponent implements OnInit {
   }
 
   loggedUserLikesPost(post) {
-    return post.likedBy.includes(this.loggedUser);
+    return post.likedBy.includes(this.loggedUsername);
   }
 
   togglePostLike(post) {
     if (!this.loggedUserLikesPost(post)) {
-      post.likedBy.push(this.loggedUser);
+      post.likedBy.push(this.loggedUsername);
     } else {
-      post.likedBy = post.likedBy.filter(user => user !== this.loggedUser);
+      post.likedBy = post.likedBy.filter(user => user !== this.loggedUsername);
     }
 
     this.dataStorageService.updatePost(post)
@@ -54,14 +67,14 @@ export class PostDetailModalComponent implements OnInit {
   }
 
   loggedUserLikesComment(comment) {
-    return comment.likedBy.includes(this.loggedUser);
+    return comment.likedBy.includes(this.loggedUsername);
   }
 
   toggleCommentLike(comment, post) {
     if (this.loggedUserLikesComment(comment)) {
-      comment.likedBy = comment.likedBy.filter(user => user !== this.loggedUser);
+      comment.likedBy = comment.likedBy.filter(user => user !== this.loggedUsername);
     } else {
-      comment.likedBy.push(this.loggedUser);
+      comment.likedBy.push(this.loggedUsername);
     }
 
     this.dataStorageService.updatePost(post)
@@ -78,7 +91,7 @@ export class PostDetailModalComponent implements OnInit {
       return;
     }
 
-    const newComment = new Comment(this.loggedUser, new Date(), this.newComment, []);
+    const newComment = new Comment(this.loggedUsername, new Date(), this.newComment, []);
     post.comments.push(newComment);
     this.newComment = '';
     this.dataStorageService.updatePost(post)

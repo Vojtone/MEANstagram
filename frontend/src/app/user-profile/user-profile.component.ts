@@ -4,6 +4,7 @@ import {Subscription} from 'rxjs';
 import {PostsService} from '../shared/posts.service';
 import {UsersService} from '../shared/users.service';
 import {ActivatedRoute} from '@angular/router';
+import {AuthService} from '../shared/auth.service';
 
 @Component({
   selector: 'app-user-profile',
@@ -16,13 +17,17 @@ export class UserProfileComponent implements OnInit {
   usersSubscription: Subscription;
 
   user: User;
-  loggedUser = 'jan'; // TODO: remove it?
+  // loggedUser = 'jan'; // TODO: remove it?
+  // loggedUser = localStorage.getItem('loggedUsername');
+  loggedUsernameSub: Subscription;
+  loggedUsername = '';
   postRows = [];
   userPosts = [];
 
   constructor(private postsService: PostsService,
               private usersService: UsersService,
-              private route: ActivatedRoute) { }
+              private route: ActivatedRoute,
+              private authService: AuthService) { }
 
   private makePostRows() {
     this.postRows = [];
@@ -50,6 +55,14 @@ export class UserProfileComponent implements OnInit {
       );
 
     this.usersSubscription = this.usersService.usersChanged.subscribe();
+
+    this.loggedUsernameSub = this.authService.loggedUsernameChanged
+      .subscribe(
+        (usrname: string) => {
+          this.loggedUsername = usrname;
+        }
+      );
+    this.loggedUsername = this.authService.getLoggedUsername();
 
     this.route.params.subscribe(routeParams => {
       const usr = routeParams.user;
