@@ -14,6 +14,16 @@ export class DataStorageService {
               private postsService: PostsService) {
   }
 
+  checkIfFbUserIdInDb(fbUserId) {
+    const req = new HttpRequest('POST', 'http://localhost:8080/users/fbCheck', fbUserId);
+    return this.httpClient.request(req);
+  }
+
+  addNewUser(newUser) {
+    const req = new HttpRequest('POST', 'http://localhost:8080/users', newUser);
+    return this.httpClient.request(req);
+  }
+
   addNewPost(newPost) {
     const req = new HttpRequest('POST', 'http://localhost:8080/posts', newPost, {reportProgress: true});
     return this.httpClient.request(req);

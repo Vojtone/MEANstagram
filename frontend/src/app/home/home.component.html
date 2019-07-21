@@ -1,0 +1,54 @@
+<p *ngIf="!loading && !showSignUp">
+  Please login via fb to use MEANstagram
+  <br>
+  <button class="btn btn-primary" (click)="fbLogin()">FB Login</button>
+</p>
+<p *ngIf="loading">
+  Loading...
+</p>
+
+
+<!--TODO: Walidacja-->
+<div class="row" *ngIf="showSignUp && !loading">
+  <div class="col-12">
+    <p>Create new account</p>
+    <div *ngIf="signUpMessage !== ''" class="alert-danger alert">{{signUpMessage}}</div>
+    <form (ngSubmit)="onSignUp(f)" #f="ngForm">
+      <div class="row">
+        <div class="col-12 form-group">
+          <label for="username">Username</label>
+          <input
+            type="text"
+            id="username"
+            class="form-control"
+            name="username"
+            [(ngModel)]="username"
+          >
+        </div>
+        <div class="col-12 form-group">
+          <label for="profilePicUrl"> Profile Picture Url</label>
+          <input
+            type="text"
+            id="profilePicUrl"
+            class="form-control"
+            name="profilePicUrl"
+            [(ngModel)]="profilePicUrl"
+          >
+        </div>
+        <div class="col-12 form-group">
+          <label for="description">Description</label>
+          <input
+            type="text"
+            id="description"
+            class="form-control"
+            name="description"
+            [(ngModel)]="description"
+          >
+        </div>
+        <div class="col-12">
+          <button class="btn btn-success" type="submit">Sign Up</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

@@ -18,6 +18,7 @@ import {PostsService} from './shared/posts.service';
 import {HttpClientModule} from '@angular/common/http';
 import {DataStorageService} from './shared/data-storage.service';
 import { PostDetailModalComponent } from './user-profile/post-detail-modal/post-detail-modal.component';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { PostDetailModalComponent } from './user-profile/post-detail-modal/post-
     UserPostsGridComponent,
     PostComponent,
     NewPostComponent,
-    PostDetailModalComponent
+    PostDetailModalComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,

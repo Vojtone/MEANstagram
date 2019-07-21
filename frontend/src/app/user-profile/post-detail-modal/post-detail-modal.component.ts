@@ -29,7 +29,7 @@ export class PostDetailModalComponent implements OnInit {
           this.dataStorageService.getPosts();
           this.dataStorageService.getUsers();
           this.activeModal.dismiss();
-          this.router.navigate(['/']); // TODO: tu prawdopodobnie nie bedzie zbyt dobrze
+          this.router.navigate(['/wall']);
         }
       );
   }

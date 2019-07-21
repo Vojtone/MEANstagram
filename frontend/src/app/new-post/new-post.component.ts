@@ -18,7 +18,7 @@ export class NewPostComponent implements OnInit {
   constructor(private postsService: PostsService,
               private usersService: UsersService,
               private dataStorageService: DataStorageService,
-              private router: Router) { }
+              private router: Router) {}
 
   ngOnInit() {
   }
@@ -33,7 +33,7 @@ export class NewPostComponent implements OnInit {
           console.log(response);
           this.dataStorageService.getPosts();
           this.dataStorageService.getUsers();
-          this.router.navigate(['/']); // TODO: tu leca errory
+          this.router.navigate(['/wall']); // TODO: tu leca errory
         }
       );
     // console.log(a);

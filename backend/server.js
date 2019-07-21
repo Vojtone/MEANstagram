@@ -11,13 +11,14 @@ app.use(function(req, res, next) {
     next();
 });
 
-function User(username, profilePhotoUrl, description, posts, followers, following) {
+function User(username, profilePhotoUrl, description, posts, followers, following, fbUserID) {
     this.username = username;
     this.profilePhotoUrl = profilePhotoUrl;
     this.description = description;
     this.posts = posts;
     this.followers = followers;
     this.following = following;
+    this.fbUserID = fbUserID
 }
 
 function Post(id, user, photoUrl, description, creationDate, likedBy, comments) {
@@ -40,11 +41,12 @@ function Comment(user, creationDate, content, likedBy) {
 var users = [
     new User('jan',
         'https://upload.wikimedia.org/wikipedia/commons/0/05/Orthosiphon_pallidus_%28Jyoti%29_in_Talakona_forest%2C_AP_W_IMG_8284.jpg',
-        'Random user description.', ['0', '1', '2', '3'], ['1', '2', '3'], ['1']),
-    new User('kuba', '', 'just kuba', ['4'], ['0'], ['0']),
-    new User('caty', '', 'just caty', ['5'], [], ['0']),
-    new User('que', '', 'quequeuqeuqe', [], [], ['0']),
-    new User('fifi', '', 'fiflak', [], [], [])
+        'Random user description.', ['0', '1', '2', '3'], ['1', '2', '3'], ['1'], '1'),
+    new User('kuba', '', 'just kuba', ['4'], ['0'], ['0'], '2'),
+    new User('caty', '', 'just caty', ['5'], [], ['0'], '3'),
+    new User('que', '', 'quequeuqeuqe', [], [], ['0'], '4'),
+    new User('fifi', '', 'fiflak', [], [], [], '5'),
+    // new User('W', '', 'w', [], [], [], '2857240264347866')
 ];
 
 var posts = [
@@ -70,13 +72,41 @@ app.get("/users", function(req, res){
     res.send(users);
 });
 
+app.post("/users", function(req, res){
+    console.log(req.body);
+    const fbUserID = req.body.fbUserID;
+    const newUser = req.body.newUser;
+
+    if (users.filter((user) => user.username === newUser.username).length > 0) {
+        res.send({status: false, msg: 'This username already exists'});
+    } else if (users.filter((user) => user.fbUserID === fbUserID).length > 0) {
+        res.send({status: false, msg: 'This fb account is already assigned to an account'});
+    } else {
+        users.push(new User(newUser.username, newUser.profilePhotoUrl, newUser.description,
+            [], [], [], fbUserID));
+        res.send({status: true});
+    }
+});
+
+app.post('/users/fbCheck', function(req, res){
+    var fbUserId = req.body.fbUserId;
+    for (var i=0; i<users.length; i++) {
+        if (users[i].fbUserID === fbUserId) {
+            res.send(true);
+        } else if (i === users.length-1) {
+            res.send(false);
+        }
+    }
+});
+
 app.get("/posts", function(req, res){
     // res.header('Access-Control-Allow-Origin', 'http://localhost:4200');
     res.send(posts);
 });
 
 app.post('/posts', function(req, res){
-    const id = posts.length + 1 + '';
+
+    const id = Math.floor(Math.random() * Number.MAX_VALUE) + '';
 
     const np = req.body;
 

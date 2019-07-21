@@ -25,6 +25,7 @@ export class UserProfileComponent implements OnInit {
               private route: ActivatedRoute) { }
 
   private makePostRows() {
+    this.postRows = [];
     for (let i = 0; i < this.userPosts.length; i++) {
       if (i % 3 === 0) {
         this.postRows.push([]);
@@ -33,7 +34,7 @@ export class UserProfileComponent implements OnInit {
     }
   }
 
-  ngOnInit() { // TODO: redirect from one profile to other bug fix
+  ngOnInit() {
     const username = this.route.snapshot.paramMap.get('user');
     this.user = this.usersService.getUser(username);
     this.userPosts = this.postsService.getUserPosts(username);
@@ -50,13 +51,12 @@ export class UserProfileComponent implements OnInit {
 
     this.usersSubscription = this.usersService.usersChanged.subscribe();
 
-    // this.route.params.subscribe(routeParams => {
-    //   // const username = this.route.snapshot.paramMap.get('user');
-    //   const usr = routeParams.user;
-    //   this.user = this.usersService.getUser(usr);
-    //   this.userPosts = this.postsService.getUserPosts(usr);
-    //   this.makePostRows();
-    // });
+    this.route.params.subscribe(routeParams => {
+      const usr = routeParams.user;
+      this.user = this.usersService.getUser(usr);
+      this.userPosts = this.postsService.getUserPosts(usr);
+      this.makePostRows();
+    });
   }
 
 }
