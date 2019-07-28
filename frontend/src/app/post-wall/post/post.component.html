@@ -8,6 +8,7 @@
     <img
       id = "photo-{{post.index}}"
       [src]="post.content.photoUrl"
+      onError="this.src='https://coolsilh.com/png-256/407856-fabric_011.png'"
       class="img-responsive"
       style="max-height: 200px; cursor: pointer"
       (click)="showDetail($event)">
@@ -61,6 +62,7 @@
 <div id="overlay-{{post.index}}" style="display: none;">
   <img id="detail-{{post.index}}"
     [src]="post.content.photoUrl"
+    onError="this.src='https://coolsilh.com/png-256/407856-fabric_011.png'"
     class="img-responsive"
     style="max-height: 500px; margin: 100px auto; display: block;"
     (click)="hideDetail($event)">

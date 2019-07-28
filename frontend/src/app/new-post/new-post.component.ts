@@ -7,6 +7,7 @@ import {DataStorageService} from '../shared/data-storage.service';
 import {Router} from '@angular/router';
 import {AuthService} from '../shared/auth.service';
 import {Subscription} from 'rxjs';
+import {HttpClient, HttpRequest} from '@angular/common/http';
 
 @Component({
   selector: 'app-new-post',
@@ -18,12 +19,14 @@ export class NewPostComponent implements OnInit {
   // loggedUser = 'jan';
   loggedUsernameSub: Subscription;
   loggedUsername = '';
+  description = '';
 
   constructor(private postsService: PostsService,
               private usersService: UsersService,
               private dataStorageService: DataStorageService,
               private router: Router,
-              private authService: AuthService) {}
+              private authService: AuthService,
+              private httpClient: HttpClient) {}
 
   ngOnInit() {
     if (this.authService.getLoggedUsername() === '') {
@@ -37,6 +40,21 @@ export class NewPostComponent implements OnInit {
         }
       );
     this.loggedUsername = this.authService.getLoggedUsername();
+
+    const url = 'https://quotes.rest/qod';
+    const req = new HttpRequest('GET', url);
+    this.httpClient.request(req)
+      .subscribe(
+        (response) => {
+                if (response['body'] !== undefined) {
+                  console.log(response['body'].contents.quotes[0].quote);
+                  this.description = response['body'].contents.quotes[0].quote;
+                }
+              },
+              (error) => {
+              console.log('Too many requests for now');
+              this.description = '';
+              });
   }
 
   public onAddPost(form: NgForm) {

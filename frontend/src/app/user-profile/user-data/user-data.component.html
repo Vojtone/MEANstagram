@@ -1,5 +1,6 @@
 <div class="col-3" *ngIf="user">
   <img src={{user.profilePhotoUrl}}
+       onError="this.src='https://coolsilh.com/png-256/407856-fabric_011.png'"
        alt="Something's wrong with the given src :("
        class="img-responsive rounded-circle" style="max-height: 100px;">
 </div>
