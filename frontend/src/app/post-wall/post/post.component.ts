@@ -7,6 +7,7 @@ import {PostsService} from '../../shared/posts.service';
 import {DataStorageService} from '../../shared/data-storage.service';
 import {Subscription} from 'rxjs';
 import {AuthService} from '../../shared/auth.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-post',
@@ -26,9 +27,14 @@ export class PostComponent implements OnInit {
   constructor(private usersService: UsersService,
               private postsService: PostsService,
               private dataStorageService: DataStorageService,
-              private authService: AuthService) { }
+              private authService: AuthService,
+              private router: Router) { }
 
   ngOnInit() {
+    if (this.authService.getLoggedUsername() === '') {
+      this.router.navigate(['/']);
+    }
+
     this.user = this.usersService.getUser(this.post.content.user);
     this.loggedUserLikesPost = this.post.content.likedBy.includes(this.loggedUsername);
 

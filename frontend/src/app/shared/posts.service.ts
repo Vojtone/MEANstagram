@@ -33,6 +33,7 @@ export class PostsService implements OnInit {
 
   public addPost(post: Post) {
     this.posts.push(post);
+    this.postsChanged.next(this.posts.slice());
   }
 
   public getAllPosts() {

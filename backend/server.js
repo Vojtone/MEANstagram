@@ -81,6 +81,8 @@ app.post("/users", function(req, res){
         res.send({status: false, msg: 'This username already exists'});
     } else if (users.filter((user) => user.fbUserID === fbUserID).length > 0) {
         res.send({status: false, msg: 'This fb account is already assigned to an account'});
+    } else if (['new', 'wall', 'add'].includes(newUser.username)){
+        res.send({status: false, msg: 'You can\'t use this username'});
     } else {
         users.push(new User(newUser.username, newUser.profilePhotoUrl, newUser.description,
             [], [], [], fbUserID));
@@ -106,7 +108,7 @@ app.get("/posts", function(req, res){
 
 app.post('/posts', function(req, res){
 
-    const id = Math.floor(Math.random() * Number.MAX_VALUE) + '';
+    const id = (Math.floor(Math.random() * Number.MAX_VALUE)) % 1000000000 + '';
 
     const np = req.body;
 

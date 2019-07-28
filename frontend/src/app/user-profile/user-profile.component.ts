@@ -3,7 +3,7 @@ import {User} from '../shared/user.model';
 import {Subscription} from 'rxjs';
 import {PostsService} from '../shared/posts.service';
 import {UsersService} from '../shared/users.service';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {AuthService} from '../shared/auth.service';
 
 @Component({
@@ -27,7 +27,8 @@ export class UserProfileComponent implements OnInit {
   constructor(private postsService: PostsService,
               private usersService: UsersService,
               private route: ActivatedRoute,
-              private authService: AuthService) { }
+              private authService: AuthService,
+              private router: Router) { }
 
   private makePostRows() {
     this.postRows = [];
@@ -40,8 +41,15 @@ export class UserProfileComponent implements OnInit {
   }
 
   ngOnInit() {
+    if (this.authService.getLoggedUsername() === '') {
+      this.router.navigate(['/']);
+    }
+
     const username = this.route.snapshot.paramMap.get('user');
     this.user = this.usersService.getUser(username);
+    if (this.user === undefined) {
+      this.router.navigate(['/wall']);
+    }
     this.userPosts = this.postsService.getUserPosts(username);
     this.makePostRows();
 

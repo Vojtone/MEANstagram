@@ -46,11 +46,11 @@ export class DataStorageService {
       observe: 'body',
       responseType: 'json'
     })
-      .pipe(map(
-        (users) => {
-          return users;
-        }
-      ))
+      // .pipe(map(
+      //   (users) => {
+      //     return users;
+      //   }
+      // ))
       .subscribe(
         (users: User[]) => {
           this.usersService.setUsers(users);
@@ -63,11 +63,11 @@ export class DataStorageService {
       observe: 'body',
       responseType: 'json'
     })
-      .pipe(map(
-        (posts) => {
-          return posts;
-        }
-      ))
+      // .pipe(map(
+      //   (posts) => {
+      //     return posts;
+      //   }
+      // ))
       .subscribe(
         (posts: Post[]) => {
           this.postsService.setPosts(posts);

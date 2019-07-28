@@ -8,7 +8,6 @@ import {HomeComponent} from './home/home.component';
 const appRoutes: Routes = [
   {path: '', component: HomeComponent},
   {path: 'wall', component: PostWallComponent},
-  // {path: 'jan', component: UserProfileComponent},
   {path: 'add', component: NewPostComponent},
   {path: ':user', component: UserProfileComponent},
 ];

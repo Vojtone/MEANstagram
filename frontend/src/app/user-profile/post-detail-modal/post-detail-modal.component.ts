@@ -13,8 +13,6 @@ import {Subscription} from 'rxjs';
 })
 export class PostDetailModalComponent implements OnInit {
   @Input() post;
-  // loggedUser = 'jan';
-  // loggedUser = localStorage.getItem('loggedUsername');
   loggedUsernameSub: Subscription;
   loggedUsername = '';
   newComment = '';
@@ -25,6 +23,10 @@ export class PostDetailModalComponent implements OnInit {
               private authService: AuthService) { }
 
   ngOnInit() {
+    if (this.authService.getLoggedUsername() === '') {
+      this.router.navigate(['/']);
+    }
+
     this.loggedUsernameSub = this.authService.loggedUsernameChanged
       .subscribe(
         (username: string) => {
@@ -39,10 +41,12 @@ export class PostDetailModalComponent implements OnInit {
       .subscribe(
         (response) => {
           console.log(response);
-          this.dataStorageService.getPosts();
-          this.dataStorageService.getUsers();
-          this.activeModal.dismiss();
-          this.router.navigate(['/wall']);
+          if (response.type === 1) {
+            this.dataStorageService.getPosts();
+            this.dataStorageService.getUsers();
+            this.activeModal.dismiss();
+            this.router.navigate(['/wall']);
+          }
         }
       );
   }

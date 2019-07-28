@@ -26,6 +26,10 @@ export class NewPostComponent implements OnInit {
               private authService: AuthService) {}
 
   ngOnInit() {
+    if (this.authService.getLoggedUsername() === '') {
+      this.router.navigate(['/']);
+    }
+
     this.loggedUsernameSub = this.authService.loggedUsernameChanged
       .subscribe(
         (username: string) => {
@@ -43,15 +47,13 @@ export class NewPostComponent implements OnInit {
       .subscribe(
         (response) => {
           console.log(response);
-          this.dataStorageService.getPosts();
-          this.dataStorageService.getUsers();
-          this.router.navigate(['/wall']); // TODO: tu leca errory
+          if (response.type === 1) {
+            this.dataStorageService.getPosts();
+            this.dataStorageService.getUsers();
+            this.router.navigate(['/wall']);
+          }
         }
       );
-    // console.log(a);
-    // this.userProfileService.addPost(newPost);
-    // this.postsService.addPost(newPost);
-    // this.usersService.addPostToUser(0, newPost); // to jest niepoprawne
   }
 
 }

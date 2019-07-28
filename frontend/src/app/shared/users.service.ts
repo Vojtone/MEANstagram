@@ -19,6 +19,7 @@ export class UsersService {
 
   public addUser(user: User) {
     this.users.push(user);
+    this.usersChanged.next(this.users.slice());
   }
 
   public getUser(username) {

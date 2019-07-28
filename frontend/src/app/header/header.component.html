@@ -1,7 +1,7 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <a class="navbar-brand" routerLink="/wall">| MEANstagram</a>
 
-  <div class="navbar navbar-expand-lg">
+  <div class="navbar navbar-expand-lg" *ngIf="currentRoute !== '/'">
 
     <ul class="navbar-nav">
       <li class="nav-item">
@@ -12,7 +12,9 @@
         <a class="nav-link" routerLink="/add">+</a>
       </li>
 
-      <button (click)="logout()">logout</button>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/">Logout</a>
+      </li>
 
     </ul>
   </div>

@@ -29,7 +29,11 @@ export class HomeComponent implements OnInit {
               private authService: AuthService) {}
 
   ngOnInit() {
+    console.log('ngInit');
+    this.authService.setLoggedUsername('');
     const parentScope = this;
+    parentScope.loading = false;
+    parentScope.cdRef.detectChanges();
 
     (window as any).fbAsyncInit = function() {
       FB.init({
@@ -43,33 +47,40 @@ export class HomeComponent implements OnInit {
 
       FB.getLoginStatus((response) => {
         console.log(response.status);
-        parentScope.loading = false;
         if (response.status === 'connected') {
-          // check if fb user in db
-          const fbUserId = response.authResponse.userID + '';
-          console.log('FB userID: ' + fbUserId);
-
-          parentScope.dataStorageService.checkIfFbUserIdInDb({fbUserId: fbUserId})
-            .subscribe((res) => {
-              if (res['body'] !== undefined) {
-                parentScope.fbUserID = fbUserId;
-                if (res['body'].status) {
-                  // localStorage.setItem('loggedUsername', res['body'].username); // TODO: id (hash) not username
-                  parentScope.authService.setLoggedUsername(res['body'].username);
-                  console.log(res['body'].username + ' (fbID in DB)');
-                  // parentScope.zone.run(() =>
-                  //   parentScope.router.navigate(['/wall'])
-                  // );
-                } else {
-                  // show modal signUp
-                  console.log(res['body'] + ' (fbID NOT in DB)');
-                  parentScope.showSignUp = true;
-                  console.log(parentScope.showSignUp);
-                  parentScope.cdRef.detectChanges();
-                }
-              }
-            });
+          FB.logout((r) => console.log(r));
+          response.status = 'unknown';
         }
+        parentScope.loading = false;
+        parentScope.cdRef.detectChanges();
+        // parentScope.loading = false;
+        // parentScope.cdRef.detectChanges();
+        // if (response.status === 'connected') {
+        //   // check if fb user in db
+        //   const fbUserId = response.authResponse.userID + '';
+        //   console.log('FB userID: ' + fbUserId);
+        //
+        //   parentScope.dataStorageService.checkIfFbUserIdInDb({fbUserId: fbUserId})
+        //     .subscribe((res) => {
+        //       if (res['body'] !== undefined) {
+        //         parentScope.fbUserID = fbUserId;
+        //         if (res['body'].status) {
+        //           // localStorage.setItem('loggedUsername', res['body'].username); // TODO: id (hash) not username
+        //           parentScope.authService.setLoggedUsername(res['body'].username);
+        //           console.log(res['body'].username + ' (fbID in DB)');
+        //           parentScope.zone.run(() =>
+        //             parentScope.router.navigate(['/wall'])
+        //           );
+        //         } else {
+        //           // show modal signUp
+        //           console.log(res['body'] + ' (fbID NOT in DB)');
+        //           parentScope.showSignUp = true;
+        //           console.log(parentScope.showSignUp);
+        //           parentScope.cdRef.detectChanges();
+        //         }
+        //       }
+        //     });
+        // }
       });
 
     };
@@ -85,12 +96,57 @@ export class HomeComponent implements OnInit {
   }
 
   fbLogin() {
+    const parentScope = this;
     console.log('submit login to facebook');
     // FB.login();
+
+    FB.getLoginStatus((response) => {
+      console.log(response.status);
+      if (response.status === 'connected') {
+        FB.logout((r) => {
+          console.log(r);
+          parentScope.login(parentScope);
+        });
+      } else {
+        parentScope.login(parentScope);
+      }
+
+    });
+  }
+
+  login(parentScope) {
     FB.login((response) => {
 
       console.log('submitLogin', response);
       if (response.authResponse) {
+
+        if (response.status === 'connected') {
+          // check if fb user in db
+          const fbUserId = response.authResponse.userID + '';
+          console.log('FB userID: ' + fbUserId);
+
+          parentScope.dataStorageService.checkIfFbUserIdInDb({fbUserId: fbUserId})
+            .subscribe((res) => {
+              if (res['body'] !== undefined) {
+                parentScope.fbUserID = fbUserId;
+                if (res['body'].status) {
+                  // localStorage.setItem('loggedUsername', res['body'].username); // TODO: id (hash) not username
+                  parentScope.authService.setLoggedUsername(res['body'].username);
+                  console.log(res['body'].username + ' (fbID in DB)');
+                  parentScope.zone.run(() =>
+                    parentScope.router.navigate(['/wall'])
+                  );
+                } else {
+                  // show modal signUp
+                  console.log(res['body'] + ' (fbID NOT in DB)');
+                  parentScope.showSignUp = true;
+                  console.log(parentScope.showSignUp);
+                  parentScope.cdRef.detectChanges();
+                }
+              }
+            });
+        }
+
         // login success
         // login success code here
         // redirect to home page
@@ -121,6 +177,9 @@ export class HomeComponent implements OnInit {
               console.log('created ' + response['body'].username);
               // localStorage.setItem('loggedUsername', response['body'].username);
               this.authService.setLoggedUsername(response['body'].username);
+              this.zone.run(() =>
+                this.router.navigate(['/wall'])
+              );
               // TODO: redirect here
             } else {
               // show message
